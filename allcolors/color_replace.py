@@ -23,16 +23,24 @@ def compute_delta(r1, g1, b1, r2, g2, b2):
         (sum1 - sum2)**2
 
 
-def find_closest_color(color, palette):
+def find_closest_color(color, palette, max_tries=20000):
+    """ Assumes palette is sorted by sum of RBG, a crude measure of brightness
+        max_tries limits number of iterations to try.
+
+        TODO - This should use a sorted palette and do a binary search
+    """
     if not palette:
         raise Exception('Palette empty - Ran out of colors; is input image too big ?')
     best_color = None
     best_delta = sys.maxint
     for x, y, z in palette:
+        if tries >= max_tries:
+            return best_color
         cur_delta = compute_delta(color[0], color[1], color[2], x, y, z)
         if cur_delta < best_delta:
             best_color = (x, y, z)
             best_delta = cur_delta
+        tries += 1
     return best_color
 
 
@@ -46,18 +54,6 @@ def create_palette(color_depth=8, max_color_depth=8):
             for z in range(0, 2**color_depth):
                 palette.append( (x*scale, y*scale, z*scale) )
     return palette
-
-
-def do_replace_simple(im, palette):
-    # Simple, greedy version
-    for x in range(0, im.size[0]):
-        for y in range(0, im.size[1]):
-            new_color = find_closest_color(im.getpixel((x, y)), palette)
-            im.paste(new_color, box=((x, y, x+1, y+1)))
-            palette.remove(new_color) # only use each color once
-        print 'Row %s of %s   last paste: %s - Elapsed: %s' %\
-            (x, im.size[0], new_color, time.time() - start_time)
-
 
 
 def do_replace_random(im, palette):
@@ -95,6 +91,7 @@ if __name__ == "__main__":
     palette = create_palette(int(depth), MAX_COLOR)
     print 'Using palette with %s colors' % len(palette)
 
+    random.shuffle(palette)
     do_replace_random(im, palette)
 
     print 'Finished.  %s colors left in palette.' % len(palette)
