@@ -28,19 +28,29 @@ but do have to a power of 2.
 
 # Examples
 
-## Chocolate 64x64
+### Tasty 64x64
 ![64x64 Input](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_64x64.png)
 
 ![64x64 Output](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_64x64_out.png)
 
 
-## Chocolate 256x128
+### Tasty 256x128
 ![256x128 Input](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_256x128.png)
 
 ![256x128 Output](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_256x128_out.png)
 
 
-## Mercat 256x128
+### Mercat 256x128
 ![256x128 Input](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/mercat_128x256.png)
 
 ![256x128 Output](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/mercat_128x256_out.png)
+
+
+### Tasty 512x512
+![512x512 Input](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_512x512.png)
+
+![512x512 Output](https://raw.github.com/drewvolpe/codegames/master/allcolors/images/tasty_512x512_out.png
+)
+
+
+
