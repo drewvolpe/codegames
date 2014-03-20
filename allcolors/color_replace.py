@@ -1,12 +1,11 @@
 
+import argparse
 import math
 from PIL import Image
 import random
 import sys
 import time
 
-INPUTFILENAME = './images/mercat_128x256.png' # 'tasty_256x128.png'
-OUTFILENAME = INPUTFILENAME[:-4] + '_out.png'
 MAX_COLOR = 2**8  # bit depth of the input image - TODO: compute automatically
 
 
@@ -33,6 +32,7 @@ def find_closest_color(color, palette, max_tries=20000):
         raise Exception('Palette empty - Ran out of colors; is input image too big ?')
     best_color = None
     best_delta = sys.maxint
+    tries = 0
     for x, y, z in palette:
         if tries >= max_tries:
             return best_color
@@ -78,9 +78,15 @@ def do_replace_random(im, palette):
 
 if __name__ == "__main__":
 
+
+    parser = argparse.ArgumentParser(description='Create an AllRGB version of a given image')
+    parser.add_argument('input_image', type=str, nargs=1, help='Input image')
+    args = vars(parser.parse_args())
+    in_filename = args['input_image'][0]
+
     print 'Starting...'
-    im = Image.open(INPUTFILENAME)
-    print 'Read file %s' % INPUTFILENAME
+    im = Image.open(in_filename)
+    print 'Read file %s' % in_filename
 
     # Compute palette size based on size of image.
     num_pixels = im.size[0] * im.size[1]
@@ -95,5 +101,7 @@ if __name__ == "__main__":
     do_replace_random(im, palette)
 
     print 'Finished.  %s colors left in palette.' % len(palette)
-    im.save(OUTFILENAME)
-    print 'Wrote %s' % OUTFILENAME
+    out_filename = in_filename[:-4] + '_out.png'
+    im.save(out_filename)
+    print 'Wrote %s' % out_filename
+
