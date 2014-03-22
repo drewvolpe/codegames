@@ -25,6 +25,10 @@ For example, if you give it a 64x64 pixel image, it will use a palette with
 4096 different colors.  Images don't have to be square (256x128 works fine),
 but do have to a power of 2.
 
+It can be run with: 
+> python color_replace.py input_image.png
+
+
 
 # Examples
 
